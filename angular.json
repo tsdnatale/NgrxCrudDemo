@@ -127,5 +127,8 @@
       }
     }
   },
-  "defaultProject": "NgrxCrudDemo"
+  "defaultProject": "NgrxCrudDemo",
+  "cli": {
+    "defaultCollection": "@ngrx/schematics"
+  }
 }
