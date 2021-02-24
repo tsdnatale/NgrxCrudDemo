@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, map, concatMap, tap, switchMap } from 'rxjs/operators';
-import { EMPTY, of } from 'rxjs';
+import { catchError, map, concatMap, tap, switchMap, mergeMap, delay } from 'rxjs/operators';
+import { EMPTY, of, pipe } from 'rxjs';
 
 import { ApiService } from 'src/app/services/api.service';
 import * as UserActions from '../actions/user.actions';
@@ -10,6 +10,16 @@ import * as UserActions from '../actions/user.actions';
 export class UserEffects {
   constructor(private actions$: Actions, private apiService: ApiService) {
   }
+
+  disableUI$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(UserActions.initUpdate),
+      concatMap(action => [
+        UserActions.initUpdateSuccess({ disable: action.disable}),
+        action.action
+      ])
+    )
+  });
 
   loadUsers$ = createEffect(() => {
     return this.actions$.pipe(
@@ -43,6 +53,7 @@ export class UserEffects {
         this.apiService.UpdateUser(action.user).pipe(
           tap(response => console.log('api, effect called', action.type, response)),
           //map(response => UserActions.updateUserSuccess({ user: action.user })),
+          delay(2000),
           map(response => UserActions.loadUsers()),
           catchError(error => of(UserActions.updateUserFailure({ error }))))
       )
@@ -56,6 +67,7 @@ export class UserEffects {
         this.apiService.DeleteUser(action.user).pipe(
           tap(response => console.log('api, effect called', action.type, response)),
           //map(response => UserActions.deleteUserSuccess({ user: action.user })),
+          delay(2000),
           map(response => UserActions.loadUsers()),
           catchError(error => of(UserActions.deleteUserFailure({ error }))))
       )

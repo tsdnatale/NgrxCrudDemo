@@ -1,15 +1,15 @@
-<p>Users:</p>
-
 <div>
-    <button (click)="add()">Add New User</button>
+    <button (click)="add()" [disabled]="uiDisabled$ | async">Add New User</button>
 </div>
+
+<div *ngIf="uiDisabled$ | async">... updating, please wait</div>
 
 <div *ngIf="(users$ | async) as users">
     <ul>
         <li *ngFor="let user of users" >
             [{{ user.id }}] {{ user.name }}
-            <button (click)="edit(user)">Edit</button>
-            <button (click)="delete(user)">Delete</button>
+            <button (click)="edit(user)" [disabled]="uiDisabled$ | async">Edit</button>
+            <button (click)="delete(user)" [disabled]="uiDisabled$ | async">Delete</button>
         </li>
     </ul>
 </div>

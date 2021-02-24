@@ -1,5 +1,15 @@
-import { createAction, props } from '@ngrx/store';
+import { Action, createAction, props } from '@ngrx/store';
 import { User } from '../models/user.model';
+
+export const initUpdate = createAction(
+  '[UI] initUpdate',
+  props<{ disable: boolean, action: Action }>()
+);
+
+export const initUpdateSuccess = createAction(
+  '[UI] initUpdate success',
+  props<{ disable: boolean }>()
+);
 
 export const loadUsers = createAction(
   '[User] Load Users'

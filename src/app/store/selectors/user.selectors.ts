@@ -14,3 +14,8 @@ export const selectUsersError = createSelector(
   selectUserState,
   (state: fromUser.State) => state.error
 );
+
+export const selectUIDisabled = createSelector(
+  selectUserState,
+  (state: fromUser.State) => state.uiDisabled
+);
