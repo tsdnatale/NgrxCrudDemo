@@ -21,4 +21,6 @@ export const reducer = createReducer(
   on(UserActions.loadUsersSuccess, (state, action) => ({ ...state, users: action.users })),
   on(UserActions.loadUsersFailure, (state, action) => ({ ...state, error: action.error })),
 
+  on(UserActions.addUserSuccess, (state, action) => ({ ...state })),
+  on(UserActions.addUserFailure, (state, action) => ({ ...state, error: action.error }))
 );

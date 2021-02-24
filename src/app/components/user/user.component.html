@@ -1,9 +1,15 @@
-<p>user works!</p>
+<p>Users:</p>
+
+<div>
+    <button (click)="add()">Add New User</button>
+</div>
 
 <div *ngIf="(users$ | async) as users">
     <ul>
-        <li *ngFor="let user of users">
-            {{ user.name }}
+        <li *ngFor="let user of users" >
+            [{{ user.id }}] {{ user.name }}
+            <button (click)="edit(user)">Edit</button>
+            <button (click)="delete(user)">Delete</button>
         </li>
     </ul>
 </div>
